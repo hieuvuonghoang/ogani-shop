@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Banana",
+        "description": "A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called \"plantains\", distinguishing them from dessert bananas.",
+        "price": 10.00,
+        "categoryId": "61179f2c5cf6a48507b8786c",
+        "imageIds": ["611bbd7e98caa808ca6c6c5f"]
+    },
+    {
+        "name": "Crab Pool Security",
+        "description": "In Crab Pool hermit crabs armed with pool cues hit snail shells in an attempt to deshell their opponent. Snail shells propelled by the cue have a green trail indicating they are powerful enough to knock the shell off a crab so be careful! Controls: analogue sticks to move and aim, R1 to shoot with pool cue, L1 to block by hiding in shell.",
+        "price": 30.00,
+        "categoryId": "61179f2c5cf6a48507b8786b",
+        "imageIds": ["611bbd7e98caa808ca6c6c60"]
+    },
+    {
+        "name": "Guava",
+        "description": "Guava is a common tropical fruit cultivated in many tropical and subtropical regions. Psidium guajava is a small tree in the myrtle family, native to Mexico, Central America, the Caribbean and northern South America.",
+        "price": 150.00,
+        "categoryId": "61179f2c5cf6a48507b87871",
+        "imageIds": ["611bbd7e98caa808ca6c6c63"]
+    }
+]

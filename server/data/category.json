@@ -1,0 +1,47 @@
+[
+    {
+        "_id": "61179f2c5cf6a48507b8786b",
+        "name": "Fresh Meat",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b8786c",
+        "name": "Vegetables",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b8786d",
+        "name": "Fruit & Nut Gifts",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b8786e",
+        "name": "Fresh Berries",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b8786f",
+        "name": "Ocean Foods",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b87870",
+        "name": "Butter & Eggs",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b87871",
+        "name": "Butter & Eggs",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b87872",
+        "name": "Fresh Onion",
+        "isActive": "Y"
+    },
+    {
+        "_id": "61179f2c5cf6a48507b87873",
+        "name": "Papayaya & Crisps",
+        "isActive": "Y"
+    }
+]

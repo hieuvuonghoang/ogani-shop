@@ -1,0 +1,62 @@
+[
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-1.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-2.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-3.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-4.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-5.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-6.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-7.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-8.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-9.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-10.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-11.jpg",
+        "isActive": "Y",
+        "priority": 1
+    },
+    {
+        "urlLink": "http://localhost:3000/file/image/product/product-12.jpg",
+        "isActive": "Y",
+        "priority": 1
+    }
+]
