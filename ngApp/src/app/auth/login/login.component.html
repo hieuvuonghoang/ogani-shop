@@ -1,0 +1,40 @@
+<section class="checkout spad">
+  <div class="container center">
+    <div class="checkout__form">
+
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <h4>Login</h4>
+        </div>
+      </div>
+
+      <form>
+
+        <div class="row">
+          <div class="col-lg-4 mx-auto">
+            <div class="checkout__input">
+              <p>User Name</p>
+              <input name="userName" type="text" [(ngModel)]="loginUserData.userName">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 mx-auto">
+            <div class="checkout__input">
+              <p>Password</p>
+              <input name="passWord" type="password" [(ngModel)]="loginUserData.passWord">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 mx-auto">
+            <button (click)="loginUser()" type="button" class="site-btn float-right">Login</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>

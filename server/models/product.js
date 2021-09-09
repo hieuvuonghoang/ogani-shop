@@ -19,10 +19,10 @@ const productSchema = new Schema({
     },
     price: Number,
     // unitMeasurementID: String,
-    categories: [{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
-    }],
+    },
     images: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Image"

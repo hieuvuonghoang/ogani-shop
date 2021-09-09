@@ -76,6 +76,28 @@ const createCategory = function (category) {
     }).catch(err => console.error("\n>> Created Category error:\n", err));
 }
 
+const getCategory = async function (categoryId) {
+    let conditions = {};
+    if (categoryId) {
+        conditions._id = categoryId;
+    }
+    return await db.Category.find(conditions);
+}
+
+const getCountCategory = async function (categoryId) {
+    let conditions = {};
+    let result = 0;
+    if (categoryId) {
+        conditions._id = categoryId;
+    }
+    await db.Category.find(conditions).count(function (err, count) {
+        if (!err) {
+            result = count;
+        }
+    });
+    return result;
+}
+
 //#endregion
 
 //#region "Product"
@@ -87,11 +109,12 @@ router.get('/product-count', async function (req, res) {
 
 router.get('/product', async function (req, res) {
     let categoryId = req.query.categoryId;
+    let str = `${categoryId}`;
     let nLimit = Number(req.query.nLimit);
     let nPage = Number(req.query.nPage);
     let fieldSort = req.query.fieldSort;
     let sortType = Number(req.query.sortType);
-    getProducts(categoryId, nLimit, nPage, fieldSort, sortType, (err, categorys, conditions) => {
+    getProducts(str, nLimit, nPage, fieldSort, sortType, (err, existCategory, nCount, products) => {
         if (err) {
             res.status(400);
             res.json({
@@ -99,7 +122,11 @@ router.get('/product', async function (req, res) {
             });
         } else {
             res.status(200);
-            res.json(categorys);
+            res.json({
+                existCategory: existCategory,
+                count: nCount,
+                products: products
+            });
         }
     });
 })
@@ -126,7 +153,7 @@ router.post('/product', async function (req, res) {
         price: req.body.price
     });
     console.log(req.body.imageId);
-    await addProductToCategory(newProduct._id, req.body.categoryIds);
+    await addProductToCategory(newProduct._id, req.body.categoryId);
     let product = await addImagesToProduct(req.body.imageIds, newProduct._id);
     res.json(product);
 })
@@ -166,13 +193,11 @@ const createProduct = function (product) {
     }).catch(err => console.error("\n>> Created Product error:\n", err));
 }
 
-const addProductToCategory = function (productId, categoryIds) {
+const addProductToCategory = function (productId, categoryId) {
     return db.Product.findByIdAndUpdate(
         productId, {
-            $push: {
-                categories: {
-                    $each: categoryIds
-                }
+            $set: {
+                category: categoryId
             }
         }, {
             new: true,
@@ -187,7 +212,7 @@ const getProduct = async function (productId, callBack) {
     await db.Product.find({
             _id: productId
         })
-        .populate('categories', 'name priority -_id')
+        .populate('category', 'name priority -_id')
         .populate('images', 'urlLink')
         .populate('uomWeight', 'name -_id')
         .populate('uomAvailability', 'name -_id')
@@ -201,44 +226,67 @@ const getProduct = async function (productId, callBack) {
 }
 
 const getProducts = async function (categoryId, nLimit, nPage, fieldSort, sortType, callBack) {
-    var err = "";
-    var categorys = [];
-    var conditions = {};
-    var objSorts = {};
-    var nSkip = 0;
-    if (categoryId) {
-        conditions.categories = categoryId;
-    }
-    if (!nLimit) {
-        nLimit = 0;
-    }
-    if (!nPage) {
-        nPage = 1;
-    }
-    if (fieldSort && sortType) {
-        objSorts[fieldSort] = sortType;
-    }
-    nSkip = (nPage - 1) * nLimit;
-    await db.Product.find(conditions)
-        .populate('category')
-        .populate('images')
-        .sort(objSorts)
-        .skip(nSkip)
-        .limit(nLimit)
-        .then(data => {
-            categorys = data;
-        })
-        .catch(error => {
-            err = error.message;
+    let err = "";
+    let category;
+    let existCategory = true;
+    let products = [];
+    let conditions = {};
+    let objSorts = {};
+    let nSkip = 0;
+    let nCount = 0;
+    try {
+        if (categoryId) {
+            category = await db.Category.findById(categoryId, 'priority -_id').exec();
+            if (category) {
+                existCategory = true;
+                if (category._doc.priority !== 1) {
+                    conditions.category = categoryId;
+                }
+            } else {
+                existCategory = false;
+                callBack("", existCategory, 0, []);
+                return;
+            }
+        }
+        if (!nLimit) {
+            nLimit = 0;
+        }
+        if (!nPage) {
+            nPage = 1;
+        }
+        if (fieldSort && sortType) {
+            objSorts[fieldSort] = sortType;
+        }
+        nSkip = (nPage - 1) * nLimit;
+        await db.Product.countDocuments(conditions, (err, count) => {
+            if (!err) {
+                nCount = count;
+            }
         });
-    callBack(err, categorys, conditions);
+        await db.Product.find(conditions)
+            .populate('category')
+            .populate('images')
+            .sort(objSorts)
+            .skip(nSkip)
+            .limit(nLimit)
+            .then(data => {
+                products = data;
+            })
+            .catch(error => {
+                err = error.message;
+            });
+        callBack(err, existCategory, nCount, products);
+    } catch (ex) {
+        callBack(ex, false, 0, []);
+    }
+
 }
 
 const getProductsInCategory = function (categoryId) {
     return db.Product.find({
-            categories: categoryId
+            category: categoryId
         })
-        .populate('categories', 'name -_id')
+        .populate('category', 'name -_id')
         .populate('images');
 }
 
@@ -257,21 +305,21 @@ const addImagesToProduct = function (imageIds, productId) {
     )
 }
 
-const countProduct = async function (categoryId) {
-    var ret = 0;
-    var objCondition = {};
+const countProduct = async function (categoryId, callBack) {
+    let result = 0;
+    let error = "";
+    let objCondition = {};
     if (categoryId) {
-        objCondition.categories = categoryId;
+        objCondition.category = categoryId;
     }
-    await db.Product.find(objCondition)
-        .count(function (err, count) {
-            if (err) {
-                console.error(err.message);
-            } else {
-                ret = count;
-            }
-        })
-    return ret;
+    await db.Product.countDocuments(objCondition, (err, count) => {
+        if (!err) {
+            result = count;
+        } else {
+            error = err.message;
+        }
+    });
+    callBack(err, result);
 }
 
 //#endregion
