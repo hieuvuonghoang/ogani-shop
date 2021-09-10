@@ -17,13 +17,11 @@ export class ProductService {
 
   getProducts(categoryId: string, nLimit: number, nPage: number, fieldSort: string, sortType: number): Observable<any> {
     var apiURL = this._getUrl + `?categoryId=${categoryId}&nLimit=${nLimit}&nPage=${nPage}&fieldSort=${fieldSort}&sortType=${sortType}`;
-    console.log(apiURL);
     return this.http.get<any>(apiURL);
   }
   
-  getProductDetail(productId: string | null): Observable<Product> {
+  getProductDetail(productId: string): Observable<Product> {
     var apiURL = this._getProductDetailUrl + `?productId=${productId}`;
-    return this.http.get<Product>(apiURL)
-      .pipe(catchError(erroor => throwError(erroor)));
+    return this.http.get<Product>(apiURL);
   }
 }

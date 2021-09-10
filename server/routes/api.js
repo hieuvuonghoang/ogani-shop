@@ -212,7 +212,7 @@ const getProduct = async function (productId, callBack) {
     await db.Product.find({
             _id: productId
         })
-        .populate('category', 'name priority -_id')
+        .populate('category', 'name priority')
         .populate('images', 'urlLink')
         .populate('uomWeight', 'name -_id')
         .populate('uomAvailability', 'name -_id')

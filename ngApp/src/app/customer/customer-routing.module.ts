@@ -9,6 +9,7 @@ import { ProductCartComponent } from './shop/product-cart/product-cart.component
 import { ProductCheckOutComponent } from './shop/product-check-out/product-check-out.component';
 
 import { ProductListResolverService } from '../services/resolver/product-list-resolver.service';
+import { ProductDetailResolverService } from '../services/resolver/product-detail-resolver.service';
 
 const routes: Routes = [
   {
@@ -20,15 +21,24 @@ const routes: Routes = [
         component: ShopComponent,
         children: [
           {
-            path: 'product-list',
+            path: 'product-list/:id',
             component: ProductListComponent,
             resolve: {
               obj: ProductListResolverService
-            }
+            },
+            data: {
+              animation: 'ProductList',
+            },
           },
           {
-            path: 'product-detail',
+            path: 'product-detail/:id',
             component: ProductDetailComponent,
+            resolve: {
+              obj: ProductDetailResolverService
+            },
+            data: {
+              animation: 'ProductDetail',
+            },
           },
           {
             path: 'product-cart',
@@ -43,7 +53,10 @@ const routes: Routes = [
             component: ProductListComponent,
             resolve: {
               obj: ProductListResolverService
-            }
+            },
+            data: {
+              animation: 'ProductList',
+            },
           },
         ]
       }

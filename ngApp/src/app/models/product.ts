@@ -11,7 +11,7 @@ export class Product {
     public availability: number = 0;
     public weight: number = 0;
     public price: number = 0;
-    public categories: Category[] = [];
+    public category: Category | undefined;
     public images: Image[] = [];
     public uomWeight: Uom | undefined;
     public uomAvailability: Uom | undefined;

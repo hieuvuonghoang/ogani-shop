@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
   onSelectCategory(_id: string) {
     this.catetory = (this.categories.find(category => category._id === _id))!;
     this.toggleCategories();
-    this.router.navigate(['product-list', {id: _id}]);
+    this.router.navigate(['product-list', this.catetory._id]);
   }
 
   logout() {

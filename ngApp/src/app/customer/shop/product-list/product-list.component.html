@@ -1,6 +1,6 @@
 <!-- Product Section Begin -->
-<section class="product spad">
-  <div class="container" [@hideShow]="isShow ? 'show' : 'hide'">
+<section id="product-list-begin" class="product spad">
+  <div class="container">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
         <div class="filter__item">
@@ -39,12 +39,10 @@
               </ul>
             </div>
             <div class="product__item__text">
-              <h6><a>{{product.name}}</a></h6>
+              <h6><a (click)="onSelectProduct(product._id)">{{product.name}}</a></h6>
               <h5>${{product.price}}</h5>
             </div>
           </div>
-          <!-- <app-product-card *ngFor="let product of products" [product]="product" class="col-lg-3 col-md-4">
-          </app-product-card> -->
         </div>
         <div *ngIf="nProductCount > 0" class="product__pagination">
           <a (click)="addOrSubPage(false)"><i class="fa fa-long-arrow-left"></i></a>
