@@ -31,7 +31,6 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
       data => {
         this.product = data.obj;
         this.image = this.product.images[0];
-        window.scroll(0, $("#bread-crumb-begin").offset().top);
       }
     )
 
@@ -52,12 +51,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   }
 
   onSelectImage(id: string) {
-    // const navigationExtras: NavigationExtras = {
-    //   queryParams: {id: this.product._id},
-    //   fragment: 'product-detail-header'
-    // };
     this.image = this.product.images.find(image => image._id === id)!;
-    // this.router.navigate(['/product-detail', navigationExtras]);
   }
 
   private initBreadCrumb() {

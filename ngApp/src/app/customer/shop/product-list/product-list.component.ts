@@ -45,10 +45,6 @@ export class ProductListComponent implements OnInit {
 
     this.route.data.subscribe(
       data => {
-        console.log(window.scrollX);
-        console.log(window.scrollY);
-        let y = window.scrollY;
-        // window.scroll(0, $("#bread-crumb-begin").offset().top);
         let obj = data.obj;
         this.nProductOfPage = obj.paramas.nProductOfPage;
         this.nPage = obj.paramas.nPage;
@@ -59,7 +55,6 @@ export class ProductListComponent implements OnInit {
         this.nPageCount = (this.nProductCount % this.nProductOfPage) === 0 ? this.nPageCount : this.nPageCount + 1;
         this.paginations = Utility.pagination(this.nPage, this.nPageCount);
         this.indexPage = this.getIndexPage();
-        // window.scroll(0, y);
       }
     )
 
@@ -106,9 +101,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onSelectProduct(id: string) {
-    // window.scroll(0, $("#product-list-begin").offset().top);
     this.router.navigate(['product-detail', id]);
-    // this.router.navigateByUrl(`product-detail/${id}#product-detail-begin`);
   }
 
   private initBreadCrumb() {
