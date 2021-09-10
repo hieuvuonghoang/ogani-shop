@@ -1,3 +1,4 @@
+import { trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { slideInAnimation } from 'src/app/animations/animations';
@@ -9,9 +10,13 @@ import { ShareDataService } from 'src/app/services/share-data.service';
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css'],
-  animations: [ slideInAnimation ],
+  animations: [
+    trigger('routeAnimations', [])
+  ],
 })
 export class ShopComponent implements OnInit {
+
+  isShow: boolean = false;
 
   constructor(
     private shareData: ShareDataService,
@@ -30,7 +35,6 @@ export class ShopComponent implements OnInit {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    console.log('OK');
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 

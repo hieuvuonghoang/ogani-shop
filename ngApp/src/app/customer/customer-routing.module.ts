@@ -24,20 +24,7 @@ const routes: Routes = [
             component: ProductListComponent,
             resolve: {
               obj: ProductListResolverService
-            },
-            data: {
-              animation: 'product-list'
-            },
-          },
-          {
-            path: 'product-list/:id',
-            component: ProductListComponent,
-            resolve: {
-              obj: ProductListResolverService
-            },
-            data: {
-              animation: 'product-list'
-            },
+            }
           },
           {
             path: 'product-detail',
@@ -56,10 +43,7 @@ const routes: Routes = [
             component: ProductListComponent,
             resolve: {
               obj: ProductListResolverService
-            },
-            data: {
-              animation: 'product-list'
-            },
+            }
           },
         ]
       }

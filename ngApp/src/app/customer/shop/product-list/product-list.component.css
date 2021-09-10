@@ -1,0 +1,8 @@
+.paginationActive {
+  background: #7fad39;
+  color: white;
+}
+
+a {
+  cursor: pointer;
+}

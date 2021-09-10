@@ -17,6 +17,7 @@ export class ProductService {
 
   getProducts(categoryId: string, nLimit: number, nPage: number, fieldSort: string, sortType: number): Observable<any> {
     var apiURL = this._getUrl + `?categoryId=${categoryId}&nLimit=${nLimit}&nPage=${nPage}&fieldSort=${fieldSort}&sortType=${sortType}`;
+    console.log(apiURL);
     return this.http.get<any>(apiURL);
   }
   

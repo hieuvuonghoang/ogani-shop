@@ -7,7 +7,7 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
-import { catchError, map, mergeMap, take } from 'rxjs/operators';
+import { catchError, delay, map, mergeMap, take } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 
 import { ProductService } from '../product.service';
@@ -25,13 +25,16 @@ export class ProductListResolverService implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Observable<never> {
     const categoryId = route.paramMap.get('id') ? route.paramMap.get('id')! : "";
     const nPage = route.paramMap.get('page') ? parseInt(route.paramMap.get('page')!, 10) : 1;
+    const nProductOfPage = 12;
     const fieldSort = route.paramMap.get('field') ? route.paramMap.get('field')! : "";
     const sortType = route.paramMap.get('sort') ? parseInt(route.paramMap.get('sort')!, 10) : 1;
-    return this.productService.getProducts(categoryId, 16, nPage, fieldSort, sortType)
+    const paramas = {categoryId: categoryId, nPage: nPage, nProductOfPage: nProductOfPage, fieldSort: fieldSort, sortType: sortType, }
+    return this.productService.getProducts(categoryId, nProductOfPage, nPage, fieldSort, sortType)
       .pipe(
         take(1),
         mergeMap(data => {
           if (data.existCategory) {
+            data.paramas = paramas;
             return of(data);
           } else {
             this.router.navigate(['']);

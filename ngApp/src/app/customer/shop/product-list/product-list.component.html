@@ -1,6 +1,6 @@
 <!-- Product Section Begin -->
 <section class="product spad">
-  <div class="container">
+  <div class="container" [@hideShow]="isShow ? 'show' : 'hide'">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
         <div class="filter__item">
@@ -8,10 +8,10 @@
             <div class="col-lg-4 col-md-4">
               <div class="filter__sort">
                 <span>Sort By</span>
-                <div class="nice-select" tabindex="0"><span class="current">Default 1</span>
+                <div class="nice-select" tabindex="0"><span class="current">Price DES</span>
                   <ul class="list">
-                    <!-- <li (click)="selectSort('price#-1')" data-value="0" class="option selected">Default 1</li>
-                    <li (click)="selectSort('price#1')" data-value="0" class="option">Default 2</li> -->
+                    <li (click)="onSelectSort('price', -1)" data-value="0" class="option selected">Price DESC</li>
+                    <li (click)="onSelectSort('price', 1)" data-value="0" class="option">Price ASC</li>
                   </ul>
                 </div>
               </div>
@@ -22,39 +22,36 @@
               </div>
             </div>
             <div class="col-lg-4 col-md-4">
-              <!-- <div class="filter__found">
-                <h6><span>1</span> Products found</h6>
-              </div> -->
-              <!-- <div class="filter__option">
-                  <span class="icon_grid-2x2"></span>
-                  <span class="icon_ul"></span>
-                </div> -->
+              <div class="filter__option">
+                <span class="icon_grid-2x2"></span>
+                <span class="icon_ul"></span>
+              </div>
             </div>
           </div>
         </div>
         <div class="row">
-            <div *ngFor="let product of products" class="product__item col-lg-3 col-md-4">
-                <div class="product__item__pic set-bg" style="background-image: url('{{product.images[0].urlLink}}');">
-                    <ul class="product__item__pic__hover">
-                        <li><a><i class="fa fa-heart"></i></a></li>
-                        <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
-                        <li><a><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                </div>
-                <div class="product__item__text">
-                    <h6><a>{{product.name}}</a></h6>
-                    <h5>${{product.price}}</h5>
-                </div>
+          <div *ngFor="let product of products" class="product__item col-lg-3 col-md-4">
+            <div class="product__item__pic set-bg" style="background-image: url('{{product.images[0].urlLink}}');">
+              <ul class="product__item__pic__hover">
+                <li><a><i class="fa fa-heart"></i></a></li>
+                <!-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> -->
+                <li><a><i class="fa fa-shopping-cart"></i></a></li>
+              </ul>
             </div>
+            <div class="product__item__text">
+              <h6><a>{{product.name}}</a></h6>
+              <h5>${{product.price}}</h5>
+            </div>
+          </div>
           <!-- <app-product-card *ngFor="let product of products" [product]="product" class="col-lg-3 col-md-4">
           </app-product-card> -->
         </div>
-        <!-- <div *ngIf="productCount> 0" class="product__pagination">
+        <div *ngIf="nProductCount > 0" class="product__pagination">
           <a (click)="addOrSubPage(false)"><i class="fa fa-long-arrow-left"></i></a>
-          <a (click)="paginationClick(inforPage)" [class.paginationActive]="isCurrentPage(inforPage)"
-            *ngFor="let inforPage of inforPages">{{inforPage}}</a>
+          <a *ngFor="let pagination of paginations; let i = index" (click)="onSelectPage(i)"
+            [class.paginationActive]="i === indexPage">{{pagination}}</a>
           <a (click)="addOrSubPage(true)"><i class="fa fa-long-arrow-right"></i></a>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
